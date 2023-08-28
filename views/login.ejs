@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="login.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <title>Sign In</title>
@@ -12,55 +12,63 @@
 
 <body>
     <div class="container m-5 p-3" id="container">
-        <!-- Sign up form -->
         <div class="row m-0">
-            <div class="form-container sign-up-container mb-5 col-md-6 pe-0">
-                <form action="#" class="pe-2 ">
-                    <p class="h1">Create Account</p>
-                    <div class="social-container">
-                        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                    </div>
-                    <span>or use your email for registration</span>
-                    <input type="text" placeholder="Name" />
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
-                    <button>Sign Up</button>
-                </form>
-            </div>
             <!-- Log in form -->
-            <div class="form-container sign-in-container pe-2 mb-5 col-md-6 justify-content-center flex-wrap ">
-                <form action="#" class="pe-2 ">
+            <div class="form-container sign-in-container pe-2 mb-5 col-md-6  order-md-1 order-5">
+                <form action="/login" method="post" class="pe-2 ">
                     <h1>Sign UP</h1>
                     <div class="social-container">
                         <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                     </div>
                     <span>or use your account</span>
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
-                    <a href="#">Forgot your password?</a>
-                    <button>Sign In</button>
+                    <% if (errorMessage){ %>
+                        <div class="alert alert-danger">
+                            <%= errorMessage %>
+                        </div>
+                        <% } %>
+                            <input type="text" placeholder="username" name="username" />
+                            <input type="password" placeholder="Password" name="password" />
+                            <a href="#">Forgot your password?</a>
+                            <button>Sign In</button>
+                </form>
+            </div>
+            <!-- Sign up form -->
+
+            <div class="form-container sign-up-container mb-5 col-md-6 pe-0  order-md-1 order-1">
+                <form action="/signup" method="post" class="pe-2 ">
+                    <p class="h1">Create Account</p>
+                    <div class="social-container">
+                        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    </div>
+                    <span>or use your email for registration</span>
+                    <input type="text" placeholder="Name" name="username" />
+                    <input type="email" placeholder="Email" name="email"/>
+                    <input type="password" placeholder="Password" name="password"/>
+                    <button>Sign Up</button>
                 </form>
             </div>
 
-            <!-- mobile -->
-            <div class="overlay-container-sm col-12 p-0 d-sm-none">
+
+            <!-- overaly for mobile -->
+            <div class="overlay-container-sm col-12 p-0 d-md-none">
                 <div class="overlay-sm row">
-                    <div class="overlay-panel-sm align-items-center overlay-bottom col-12">
-                        <h1>Hello, Friend!</h1>
-                        <p>Enter your personal details and start journey <br> with us</p>
-                        <button class="ghost signUp" id="signUp">Sign Up</button>
-                    </div>
                     <div class="overlay-panel-sm overlay-top col-12 ">
                         <h1>Welcome Back!</h1>
                         <p class="text-center">To keep connected with us please login <br> with your personal info</p>
                         <button class="ghost signIn" id="signIn">Sign In</button>
                     </div>
-                    
+                    <div class="overlay-panel-sm align-items-center overlay-bottom col-12">
+                        <h1>Hello, Friend!</h1>
+                        <p>Enter your personal details and start journey <br> with us</p>
+                        <button class="ghost signUp" id="signUp">Sign Up</button>
+                    </div>
+                   
+
                 </div>
             </div>
 
-
-            <div class="overlay-container col-6 p-0 d-none d-sm-block">
+            <!-- overlay for other screens -->
+            <div class="overlay-container col-6 p-0 d-none d-md-block">
                 <div class="overlay">
                     <div class="overlay-panel overlay-left">
                         <h1>Welcome Back!</h1>
@@ -76,11 +84,12 @@
             </div>
         </div>
     </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
         integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
         crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/2129bb9b13.js" crossorigin="anonymous"></script>
-    <script src="script.js"></script>
+    <script src="login.js"></script>
 </body>
 
 </html>
