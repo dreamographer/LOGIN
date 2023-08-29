@@ -8,6 +8,7 @@ const app = express();
 const port = 3000;
 //routes 
 const userRoutes=require('./controllers/user.controller')
+const adminRoutes=require('./controllers/admin.controller')
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 //setting the static pages path
@@ -29,6 +30,13 @@ connectDB().then(()=>{
     console.log(`Error in connection :${err}`);
 })
 
+function adminauth(req,res,next){
+    if (req.session.admin) {
+        next(); // User is authenticated, continue to the next middleware or route
+    } else {
+        res.render('adminlog', { errorMessage: '' });
+    }
+}
 function authenticate(req, res, next) {
     if (req.session.user) {
         next(); // User is authenticated, continue to the next middleware or route
@@ -40,12 +48,16 @@ function authenticate(req, res, next) {
 //Disable caching
 app.use(nocache()); 
 
-// authentication of the user
+//user
 app.use('/',userRoutes)  
+
+//admin
+app.use('/admin',adminRoutes)
+
 
 //redirecting with error message if any
 app.get('/login',(req,res)=>{
-    if (req.session.user) {
+    if (req.session.user||req.session.admin) {
         res.redirect('/'); 
     } else if (req.session.err) {
         req.session.err=false;
@@ -55,18 +67,43 @@ app.get('/login',(req,res)=>{
     }else{
         res.render('login', { errorMessage: '' });
     }
+}) 
+
+
+//admin SIDE
+
+app.get('/adminLogin',(req,res)=>{
+    if (req.session.admin) {
+        res.redirect('/'); 
+    } else if (req.session.err) {
+        req.session.err=false;
+        // Pass an error message to the login view
+        res.render('adminlog', { errorMessage: 'Incorrect username or password' });
+        
+    }else{
+        res.render('adminlog', { errorMessage: '' });
+    }
+});
+
+app.get('/admin',adminauth,(req,res)=>{
+    res.render('admin')
 })
 
 //path to the home
 app.get('/',authenticate,(req, res) => {
-   
     res.render('home');
 });
 
 
 //destroying the session for logout
 app.get('/logout', (req, res) => {
-    console.log(`${req.session.user.username} logged out`);
+    if (req.session.user) {
+        console.log(`${req.session.user.username} logged out`);
+    }
+    else{
+        console.log(`${req.session.admin.username} logged out`);
+
+    }
     req.session.destroy(); // Destroy session on logout
     res.redirect('/');
 });

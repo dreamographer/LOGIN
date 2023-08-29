@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user.models'); 
-
-
 //User sign IN
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;//data given by the user
