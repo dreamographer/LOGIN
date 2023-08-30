@@ -74,7 +74,7 @@ app.get('/login',(req,res)=>{
 
 app.get('/adminLogin',(req,res)=>{
     if (req.session.admin) {
-        res.redirect('/'); 
+        res.redirect('/admin'); 
     } else if (req.session.err) {
         req.session.err=false;
         // Pass an error message to the login view
@@ -100,8 +100,9 @@ app.get('/logout', (req, res) => {
     if (req.session.user) {
         console.log(`${req.session.user.username} logged out`);
     }
-    else{
+    else if (req.session.admin) {
         console.log(`${req.session.admin.username} logged out`);
+    }{
 
     }
     req.session.destroy(); // Destroy session on logout

@@ -7,8 +7,6 @@ router.post('/login', async (req, res) => {
     const {email, password } = req.body;//data given by the user
     try {
         let admins= await Admin.find() 
-        console.log(email);
-        console.log(admins); //data awailable in the DB
         const admin = admins.find(admin => admin.email === email && admin.password === password);
         if (admin) {
             req.session.admin = admin; //setting value to the session
