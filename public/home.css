@@ -1,6 +1,13 @@
 *{
     font-family: poppins;
+    scroll-behavior: smooth;
 }
+body {
+    display: grid;
+    place-items: center;
+    overflow-x: hidden;
+  }
+  
 .navbar {
     background-color: transparent;
     transition: background-color 0.3s;
@@ -10,7 +17,7 @@
   }
 
 .container-1{
-    background-image: url(../public/images/busra-salkim-C4NO-Ct7lUc-unsplash.jpg);
+    background-image: url(/images/busra-salkim-C4NO-Ct7lUc-unsplash.jpg);
     height: 100vh;
     width: 100%;
     background-size: cover;
@@ -26,7 +33,7 @@
     align-items: center;
     min-height: 100vh;
     width: 100%;
-    background-image: url('../public/images/helena-lopes-wEjtwvjpjxg-unsplash.jpg');
+    background-image: url('/images/helena-lopes-wEjtwvjpjxg-unsplash.jpg');
     background-attachment: fixed;
     background-size: cover;
     background-position: center;
@@ -60,16 +67,7 @@
   box-sizing: border-box;
 }
 
-html,
-body {
-  height: 100%;
-}
 
-body {
-  display: grid;
-  place-items: center;
-  overflow-x: hidden;
-}
 
 .page-content {
   display: grid;

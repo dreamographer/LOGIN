@@ -1,21 +1,23 @@
+require('dotenv').config();
 const express = require('express');
-const connectDB=require('./dbConnect')
-const crypto = require('crypto');
+const connectDB=require('./dbConnect')  
+const crypto = require('crypto'); 
 const session = require('express-session');
 const path=require('path');
 const nocache = require('nocache');
 const app = express();
 const port = 3000;
-//routes 
+//routes  
 const userRoutes=require('./controllers/user.controller')
 const adminRoutes=require('./controllers/admin.controller')
+const skey=process.env.session; 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 //setting the static pages path
 app.use(express.static(path.join(__dirname,'/public')));
 // Initialize session
 app.use(session({
-    secret: crypto.randomBytes(32).toString('hex'), // Generate a random secret 
+    secret:skey, // Generate a random secret 
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -29,6 +31,9 @@ connectDB().then(()=>{
 }).catch((err)=>{
     console.log(`Error in connection :${err}`);
 })
+
+
+
 
 function adminauth(req,res,next){
     if (req.session.admin) {

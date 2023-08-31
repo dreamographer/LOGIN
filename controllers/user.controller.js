@@ -1,22 +1,43 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user.models');
-const session = require('express-session');
+const crypto = require('crypto');
 router.use(express.json());
+
+
+const algorithm = 'aes-256-cbc';
+const key = process.env.KEY; 
+const iv =process.env.IV; 
+//encription function
+function encrypt(text, key) {
+  const cipher = crypto.createCipheriv(algorithm, key, iv);
+  let encrypted = cipher.update(text, 'utf8', 'hex');
+  encrypted += cipher.final('hex');
+  return encrypted;
+}
+
+//decrypting function
+function decrypt(encryptedText, key) {
+  const decipher = crypto.createDecipheriv('aes-256-cbc', key, iv);
+  let decrypted = decipher.update(encryptedText, 'hex', 'utf8');
+  decrypted += decipher.final('utf8');
+  return decrypted;
+}
 //User sign IN
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;//data given by the user
     try {
-        let users = await User.find() //data awailable in the DB
-        const user = users.find(user => user.username === username && user.password === password);
-        if (user) {
-            req.session.user = user; //setting value to the session
-            console.log(username + ' logged in');
-            return res.redirect('/');
-        } else {
-            req.session.err = true;//for sending error message
-            return res.redirect('/login');
-        }
+      const user = await User.findOne({ username }); //data awailable in the DB
+      
+        
+        if (user && decrypt(user.password, key) === password) {
+          req.session.user = user;
+          console.log(username + ' logged in');
+          return res.redirect('/');
+      } else {
+          req.session.err = true;
+          return res.redirect('/login');
+      }
     } catch (err) {
         console.log(err);
         return res.status(500).send('Error fetching user data');
@@ -28,6 +49,7 @@ router.post('/login', async (req, res) => {
 //user signUP
 router.post('/signup', async (req, res) => {
     const data = req.body;//data given by the user
+    data.password=encrypt(data.password,key);
     try {
         await User.create(data) //inserting the data
         console.log('user created');

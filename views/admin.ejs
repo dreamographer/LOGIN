@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <div class="container-fluid m-0 p-0 "style="overflow-x: hidden;" >
+  <div class="container-fluid m-0 p-0 " style="overflow-x: hidden;">
 
     <header class="row shadow  p-0 mb-5 me-0 ms-0 bg-body-tertiary rounded" style="width: 100%;height: 5rem;">
       <div class="d-flex justify-content-between">
@@ -35,46 +35,48 @@
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
     </div>
-    <div class="row p-0 justify-content-start" >
+    <div class="row p-0 justify-content-start">
 
       <div class="col-md-9 " style="width: 100%;">
         <h2>User List</h2>
         <div class="table-responsive">
-        <table class="table table-sm " >
-          <thead class="text-center">
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody id="user-table-body"></tbody>
-          <% users.forEach(user=> { %>
-            <tr class="text-center">
-              <td>
-                <%=user._id %>
-              </td>
-              <td>
-                <%=user.username %>
-              </td>
-              <td>
-                <%=user.email %>
-              </td>
-              <td>
-                <i data-userid="<%= user._id %>"
-                  class="btn btn-outline-light  fa-solid fa-trash fa-xl me-md-5 mb-md-0 mb-2" data-bs-toggle="modal" data-bs-target="#deleteModal" style="color: red;border: none; background: none;"></i>
-                <i data-username="<%= user.username %>" data-userid="<%= user._id %>"
-                  data-userName="<%= user.username %>" data-email="<%= user.email %>"
-                  class="btn btn-outline-light fa-regular fa-pen-to-square fa-xl " style="color: #2cdb29;border: none; background: none;"
-                  data-bs-toggle="modal" data-bs-target="#editModal"></i>
-              </td>
-            </tr>
-            <% }); %>
+          <table class="table table-sm ">
+            <thead class="text-center">
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="user-table-body"></tbody>
+            <% users.forEach(user=> { %>
+              <tr class="text-center">
+                <td>
+                  <%=user._id %>
+                </td>
+                <td>
+                  <%=user.username %>
+                </td>
+                <td>
+                  <%=user.email %>
+                </td>
+                <td>
+                  <i data-userid="<%= user._id %>"
+                    class="btn btn-outline-light  fa-solid fa-trash fa-xl me-md-5 mb-md-0 mb-2" data-bs-toggle="modal"
+                    data-bs-target="#deleteModal" style="color: red;border: none; background: none;"></i>
+                  <i data-username="<%= user.username %>" data-userid="<%= user._id %>"
+                    data-userName="<%= user.username %>" data-email="<%= user.email %>"
+                    class="btn btn-outline-light fa-regular fa-pen-to-square fa-xl "
+                    style="color: #2cdb29;border: none; background: none;" data-bs-toggle="modal"
+                    data-bs-target="#editModal"></i>
+                </td>
+              </tr>
+              <% }); %>
 
-              </tbody>
-        </table>
-      </div>
+                </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
@@ -93,12 +95,13 @@
             <h1 class="modal-title fs-5" id="exampleModalLabel">Create New User</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body">
-            <form action="/signup" method="post">
+          <form action="/signup" method="post" id="signupForm">
+            <div class="modal-body">
               <div class="container-fluid">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="floatingInput" placeholder="name" name="username">
-                  <label for="floatingInput">username</label>
+                  <input type="text" class="form-control" id="newUsername" placeholder="name"
+                    name="username">
+                  <label for="newUsername">username</label>
                 </div>
                 <div class="form-floating mb-3">
                   <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
@@ -106,16 +109,21 @@
                   <label for="floatingInput">Email address</label>
                 </div>
                 <div class="form-floating">
-                  <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
+                  <input type="password" class="form-control" id="newPassword" placeholder="Password"
                     name="password">
-                  <label for="floatingPassword">Password</label>
+                  <label for="newPassword">Password</label>
+                </div>
+                <div class="form-floating">
+                  <input type="password" class="form-control" id="Cpassword"
+                    placeholder="confirmPassword" name="Cpassword">
+                  <label for="Cpassword">Confirm Password</label>
                 </div>
               </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
-          </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
           </form>
         </div>
       </div>
@@ -129,11 +137,12 @@
             <h1 class="modal-title fs-5" id="editModalLablel">UPDATE USER</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <form  id="editForm">
-          <div class="modal-body">
+          <form id="editForm">
+            <div class="modal-body">
               <div class="container-fluid">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="username" placeholder="name" name="username" value="">
+                  <input type="text" class="form-control" id="username" placeholder="name" name="username" value=""
+                    required>
                   <label for="floatingInput">username</label>
                 </div>
                 <div class="form-floating mb-3">
@@ -143,11 +152,12 @@
                 </div>
                 <input type="hidden" name="Uid" id="Uid" value="">
               </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" id="submit" data-userId="" data-bs-target="#editForm">Save changes</button>
-          </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" id="submit" data-userId="" data-bs-target="#editForm">Save
+                changes</button>
+            </div>
           </form>
         </div>
       </div>
@@ -163,8 +173,8 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-           Do you really want to delete this user ?
-           this action cant be undone
+            Do you really want to delete this user ?
+            this action cant be undone
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -175,7 +185,7 @@
     </div>
 
   </div>
- 
+
   <script>
     // <!-- Giving preset data inside the form -->
     let editModal = document.getElementById('editModal')
@@ -195,60 +205,122 @@
       Uid.value = userId
     })
 
-  // <!-- Editting the data -->
- 
-    const editForm = document.getElementById('editForm');
-    const editUsername = document.getElementById('username');
-    const editEmail = document.getElementById('email');
-    const userId=document.getElementById('Uid')
 
-    editForm.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      const updatedData = {
-        username: editUsername.value,
-        email: editEmail.value,
-      };
-      console.log(updatedData);
-      const response = await fetch(`/edit/${userId.value}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(updatedData)
-      });
-      console.log(response)
-      if (response.ok) {
-        // Refresh the page or update the user list
-        window.location.reload();
-      } else {
-        console.error('Error updating user');
-      }
-    });
 
-// <!-- opening warning Modal -->
 
-    let deleteModel=document.getElementById('deleteModal');
+    // <!-- opening warning Modal -->
+
+    let deleteModel = document.getElementById('deleteModal');
     deleteModel.addEventListener('show.bs.modal', function (event) {
       // Button that triggered the modal
       let button = event.relatedTarget
       let userId = button.getAttribute('data-userid')
       let Uid = deleteModal.querySelector('#dUId')
       Uid.value = userId
-      
-    })
-  //  <!-- Deleting the data -->
 
-    const deleteButton= document.querySelector('.delete-button');
-      deleteButton.addEventListener('click', async (event) => {
-        const userId=document.getElementById('dUId')
-        const response = await fetch(`/delete/${userId.value}`, { method: 'DELETE' });
-        if (response.ok) {
-          // Refresh the page or update the user list
-          window.location.reload();
-        } else {
-          console.error('Error deleting user');
-        }
-      });
+    })
+    //  <!-- Deleting the data -->
+
+    const deleteButton = document.querySelector('.delete-button');
+    deleteButton.addEventListener('click', async (event) => {
+      const userId = document.getElementById('dUId')
+      const response = await fetch(`/delete/${userId.value}`, { method: 'DELETE' });
+      if (response.ok) {
+        // Refresh the page or update the user list
+        window.location.reload();
+      } else {
+        console.error('Error deleting user');
+      }
+    });
+    //form validation for creating new user
+    const signupForm = document.getElementById('signupForm');
+    const newUsername = document.getElementById('newUsername');
+    const newConfirmPassword = document.getElementById('Cpassword');
+    const newPassword = document.getElementById('newPassword');
+
+    signupForm.addEventListener('submit', (event) => {
+      event.preventDefault(); // Prevent default form submission
+
+      const username = newUsername.value
+      const password = newPassword.value
+      const confirmPassword = newConfirmPassword.value
+
+
+
+      const errors = [];
+
+      if (username.length < 5) {
+        errors.push('Username must have at least 5 characters');
+      }
+
+      if (password !== confirmPassword) {
+        errors.push('Passwords do not match');
+      }
+      // Password validation: at least 8 characters with a combination of letters and numbers
+      const passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/;
+      if (!passwordPattern.test(password)) {
+        errors.push('Password must be at least 8 characters and contain both letters and numbers');
+      }
+
+      if (errors.length > 0) {
+        // Display error messages to the user
+        const errorMessage = errors.join('\n');
+        alert(errorMessage);
+      } else {
+        // Submit the form if there are no errors
+        signupForm.submit();
+      }
+    });
+
+
+
+    // form validation for update
+    const editForm = document.getElementById('editForm');
+    const editUsername = document.getElementById('username');
+    const editEmail = document.getElementById('email');
+    const userId = document.getElementById('Uid')
+
+    editForm.addEventListener('submit', (event) => {
+      event.preventDefault(); // Prevent default form submission
+      const username = editUsername.value;
+      const email = editEmail;
+      const errors = [];
+
+      if (username.length < 5) {
+        errors.push('Username must have at least 5 characters');
+      }
+      if (errors.length > 0) {
+        // Display error messages to the user
+        const errorMessage = errors.join('\n');
+        alert(errorMessage);
+      } else {
+
+        // <!-- Editting the data -->
+        editForm.addEventListener('submit', async (event) => {
+          event.preventDefault();
+          const updatedData = {
+            username: editUsername.value,
+            email: editEmail.value,
+          };
+          console.log(updatedData);
+          const response = await fetch(`/edit/${userId.value}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedData)
+          });
+          console.log(response)
+          if (response.ok) {
+            // Refresh the page or update the user list
+            window.location.reload();
+          } else {
+            console.error('Error updating user');
+          }
+        });
+
+      }
+    });
 
   </script>
 
