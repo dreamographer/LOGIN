@@ -75,8 +75,8 @@ app.get('/login',(req,res)=>{
 app.get('/adminLogin',(req,res)=>{
     if (req.session.admin) {
         res.redirect('/admin'); 
-    } else if (req.session.err) {
-        req.session.err=false;
+    } else if (req.session.aderr) {
+        req.session.aderr=false;
         // Pass an error message to the login view
         res.render('adminlog', { errorMessage: 'Incorrect username or password' });
         

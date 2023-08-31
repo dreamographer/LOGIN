@@ -13,7 +13,7 @@ router.post('/login', async (req, res) => {
             console.log(admin.username + ' logged in');
             return res.redirect('/admin');
         } else {
-            req.session.err = true;//for sending error message
+            req.session.aderr = true;//for sending error message
             return res.redirect('/adminLogin');
         }
     } catch (err) {

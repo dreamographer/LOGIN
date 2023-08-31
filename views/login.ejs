@@ -15,12 +15,9 @@
         <div class="row m-0">
             <!-- Log in form -->
             <div class="form-container sign-in-container pe-2 mb-5 col-md-6  order-md-1 order-5">
-                <form action="/login" method="post" class="pe-2 ">
-                    <h1>Sign In</h1>
-                    <div class="social-container">
-                        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                    </div>
-                    <span>or use your account</span>
+                <form action="/login" method="post" class="pe-2 mt-md-5 ">
+                    <h1 class="mb-md-5">Sign In</h1>
+                    <!--   -->
                     <% if (errorMessage){ %>
                         <div class="alert alert-danger">
                             <%= errorMessage %>
@@ -28,19 +25,20 @@
                         <% } %>
                             <input type="text" placeholder="username" name="username" />
                             <input type="password" placeholder="Password" name="password" />
-                            <a href="#">Forgot your password?</a>
                             <button>Sign In</button>
                 </form>
             </div>
             <!-- Sign up form -->
 
-            <div class="form-container sign-up-container mb-5 col-md-6 pe-0  order-md-1 order-1">
+            <div class="form-container sign-up-container mb-5 mt-md-5 col-md-6 pe-0  order-md-1 order-1">
                 <form action="/signup" method="post" class="pe-2 ">
-                    <p class="h1">Create Account</p>
-                    <div class="social-container">
+                    <p class="h1 mb-md-5">Create Account</p>
+
+                    <!-- <div class="social-container">
                         <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                     </div>
-                    <span>or use your email for registration</span>
+                    <span>or use your email for registration</span> -->
+
                     <input type="text" placeholder="Name" name="username" />
                     <input type="email" placeholder="Email" name="email"/>
                     <input type="password" placeholder="Password" name="password"/>
