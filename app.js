@@ -52,7 +52,6 @@ function authenticate(req, res, next) {
 
 //Disable caching
 app.use(nocache()); 
-
 //user
 app.use('/',userRoutes)  
 

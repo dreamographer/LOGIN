@@ -105,7 +105,8 @@ router.delete('/delete/:userId', async (req, res) => {
   const userId = req.params.userId;
   console.log(userId);
   try {
-    // Use Mongoose to find and remove the user by ID
+    // Use Mongoose to find and remove the user by 
+
     const deletedUser = await User.deleteOne({ _id: userId });
     if (deletedUser) {
         console.log('user deleted');
