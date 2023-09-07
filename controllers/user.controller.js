@@ -23,6 +23,7 @@ function decrypt(encryptedText, key) {
   decrypted += decipher.final('utf8');
   return decrypted;
 }
+
 //User sign IN
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;//data given by the user

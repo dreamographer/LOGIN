@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 //setting the static pages path
 app.use(express.static(path.join(__dirname,'/public')));
 // Initialize session
-app.use(session({
+app.use(session({ 
     secret:skey, // Generate a random secret 
     resave: false,
     saveUninitialized: true,
@@ -42,6 +42,7 @@ function adminauth(req,res,next){
         res.render('adminlog', { errorMessage: '' });
     }
 }
+
 function authenticate(req, res, next) {
     if (req.session.user) {
         next(); // User is authenticated, continue to the next middleware or route
