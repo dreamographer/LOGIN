@@ -9,7 +9,7 @@ const app = express();
 const port = 3000;
 //routes  
 const userRoutes=require('./controllers/user.controller')
-const adminRoutes=require('./controllers/admin.controller')
+const adminRoutes=require('./Routes/adminRoutes')
 const skey=process.env.session; 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
